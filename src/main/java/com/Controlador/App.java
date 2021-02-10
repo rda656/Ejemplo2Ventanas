@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.application.Platform;
+import javafx.stage.Modality;
 
 /**
  * JavaFX App
@@ -14,12 +16,13 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static String rutaFxml = "/com/vista/";
 
     @Override
     public void start(Stage stage) throws IOException {
         GestionBiblioteca.inicializar();
 
-        scene = new Scene(loadFXML("/com/vista/Principal"));
+        scene = new Scene(loadFXML(rutaFxml + "Principal"));
         //scene = new Scene(loadFXML("/com/vista/EjemploLista")); 
 
         stage.setTitle("Gestión Biblioteca");
@@ -39,5 +42,14 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-
+    
+    public static void ventanaSuperpuesta(String fxml, String titulo) throws IOException {      
+        Scene scene = new Scene(loadFXML(rutaFxml + fxml));
+        
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle(titulo);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
 }
