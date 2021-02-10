@@ -47,13 +47,20 @@ public class GUIAniadirLibro{
             alert.showAndWait();
         }
         else{
-            GestionBiblioteca.anadirLibro(new Libro(tf_isbn.getText(), tf_nombre.getText(), tf_autor.getText()));
+            boolean seHaAniadidioLibro = GestionBiblioteca.anadirLibro(new Libro(tf_isbn.getText(), tf_nombre.getText(), tf_autor.getText()));
             
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Libro añadido");
-            alert.setHeaderText("Libro añadido correctamente.");
-            alert.showAndWait();
-            
+            if(seHaAniadidioLibro){
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Libro añadido");
+                alert.setHeaderText("Libro añadido correctamente.");
+                alert.showAndWait();
+            }
+            else{
+                Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Alerta");
+            alert.setHeaderText("No queda espacio:");
+            alert.setContentText("No queda espacio en la memoria para añadir un nuevo libro.");
+            }
             cerrarVentana();
         }        
     }
